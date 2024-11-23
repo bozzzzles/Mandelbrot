@@ -75,3 +75,73 @@ void ComplexPlane::loadText(Text& text)
     info << "Right-click to Zoom out" << endl;
     text.setString(info);
 }
+
+size_t ComplexPlane::countIterations(Vector2f coord)
+{
+    complex<double> c(coord.x, coord.y);
+    complex<double> z = c;
+    int i = 0;
+    while(abs(z) < 2.0 && i < MAX_ITER)
+    {
+        z = z * z + c;
+        i++;
+    }
+    return i;
+}
+
+void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
+{
+    //TODO: Add sliding effect?? would be cool
+    if (count == MAX_ITER)
+    {
+        r = 0;
+        g = 0;
+        b = 0;
+    }
+    else if (count > 53)
+    {
+        r = 255;
+        g = 0;
+        b = 0;
+    }
+    else if (count > 43)
+    {
+        r = 255;
+        g = 187;
+        g = 0;
+    }
+    else if (count > 32)
+    {
+        r = 119;
+        g = 255;
+        b = 0;
+    }
+    else if (count > 21)
+    {
+        r = 0;
+        g = 255;
+        b = 217;
+    }
+    else if (count > 11)
+    {
+        r = 0;
+        g = 72;
+        b = 255;
+    }
+    else
+    {
+        r = 132;
+        g = 0;
+        b = 255;
+    }
+}
+
+Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
+{
+    Vector2f coord;
+    coord.x = (static_cast<float>(mousePixel.x) / (m_pixel_size.x)) 
+              * m_plane_size.x + (m_plane_center.x - m_plane_size.x / 2.0);
+    coord.y = (static_cast<float>(mousePixel.y) / (m_pixel_size.y)) 
+              * m_plane_size.y + (m_plane_center.y - m_plane_size.y / 2.0);
+    return coord;
+}
