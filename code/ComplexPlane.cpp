@@ -21,15 +21,15 @@ void ComplexPlane::updateRender()
 {
     if (m_state == CALCULATING)
     {
-        for (int i = 0; i < m_pixel_sixe.y; i++)
+        for (int i = 0; i < m_pixel_size.y; i++)
         {
             for (int j = 0; j < m_pixel_size.x; j++)
             {
-                vArray[j + i * pixelWidth].position = { (float)j,(float)i };
+                m_vArray[j + i * m_pixel_size.x].position = { (float)j,(float)i };
                 int n = countIterations(mapPixelToCoords({ j, i }));
                 Uint8 r, g, b;
                 iterationsToRGB(n, r, g, b);
-                vArray[j + i * pixelWidth].color = { r,g,b };
+                m_vArray[j + i * m_pixel_size.x].color = { r,g,b };
             }
         }
         m_state = DISPLAYING;
@@ -73,10 +73,10 @@ void ComplexPlane::loadText(Text& text)
     info << "Cursor: (" << m_mouseLocation.x << ", " << m_mouseLocation.y << ")" << endl;
     info << "Left-click to Zoom in" << endl;
     info << "Right-click to Zoom out" << endl;
-    text.setString(info);
+    text.setString(info.str());
 }
 
-size_t ComplexPlane::countIterations(Vector2f coord)
+int ComplexPlane::countIterations(Vector2f coord)
 {
     complex<double> c(coord.x, coord.y);
     complex<double> z = c;

@@ -5,6 +5,7 @@
 #include <cmath>
 #include <iostream>
 #include <complex>
+#include <string>
 
 using namespace std;
 using namespace sf;
@@ -24,6 +25,7 @@ public:
     void zoomIn();
     void zoomOut();
     void setCenter(Vector2i mousePixel);
+    void setMouseLocation(Vector2i mousePixel);
     void loadText(Text& text);
     void updateRender();
 
