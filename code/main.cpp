@@ -15,5 +15,11 @@ int main() {
 		return 1;
 	}
 
+    Text info;
+    info.setFont(arial);
+    info.setCharacterSize(14);
+    info.setFillColor(Color::White);
+
+    
     return 0;
 }
