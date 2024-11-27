@@ -21,6 +21,8 @@ void ComplexPlane::updateRender()
 {
     if (m_state == CALCULATING)
     {
+        int workableThreads = thread::hardware_concurrency();
+        
         for (int i = 0; i < m_pixel_size.y; i++)
         {
             for (int j = 0; j < m_pixel_size.x; j++)

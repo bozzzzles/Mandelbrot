@@ -11,13 +11,17 @@
 using namespace std;
 using namespace sf;
 
+// Global constants declared at top of file
+
 const unsigned int MAX_ITER = 64;
 const float BASE_WIDTH = 4.0;
 const float BASE_HEIGHT = 4.0;
 const float BASE_ZOOM = 0.5;
 
+// Enumerator class created to calculate the complex plane display
 enum State { CALCULATING, DISPLAYING };
 
+// Specifications of ComplexPlane class as described in UML diagram
 class ComplexPlane : public Drawable 
 {
 public:
