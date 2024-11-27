@@ -6,6 +6,7 @@
 #include <iostream>
 #include <complex>
 #include <string>
+#include <thread>
 
 using namespace std;
 using namespace sf;
