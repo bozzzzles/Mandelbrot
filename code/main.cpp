@@ -47,6 +47,11 @@ int main() {
                     plane.setCenter(mousePixel);
                 }
             }
+            if (event.type == Event::MouseMoved)
+            {
+                Vector2i mousePixel(event.mouseButton.x, event.mouseButton.y);
+                plane.setMouseLocation(mousePixel);
+            }
             if (Keyboard::isKeyPressed(Keyboard::Escape))
 		    {
 			    window.close();
