@@ -1,8 +1,14 @@
 #include "ComplexPlane.h"
 
+/* Definition of ComplexPlane constructor. Takes two arguments,
+   pixelWidth and pixelHeight which are taken from VideoMode class
+   function calls
+*/
 ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight)
 {
+    // Sets monitor's pixel size 2d vector to passed argument
     m_pixel_size = { pixelWidth, pixelHeight };
+    // Calculates monitor's aspect ratio via passed argument to prevent distortion
     m_aspectRatio = static_cast<float>(pixelHeight) / pixelWidth;
     m_plane_center = { 0, 0 };
     m_plane_size = { BASE_WIDTH, BASE_HEIGHT * m_aspectRatio };

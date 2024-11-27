@@ -42,11 +42,15 @@ public:
 private:
     VertexArray m_vArray;
     State m_state;
+    /* 2d vectors holding program's information. "f" is floating point",
+       "i" is integer.
+    */
     Vector2f m_mouseLocation;
     Vector2i m_pixel_size;
     Vector2f m_plane_center;
     Vector2f m_plane_size;
     int m_zoomCount;
+    // Aspect ratio of monitor
     float m_aspectRatio;
 
     int countIterations(Vector2f coord);
