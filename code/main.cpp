@@ -49,7 +49,7 @@ int main() {
             }
             if (event.type == Event::MouseMoved)
             {
-                Vector2i mousePixel(event.MouseMoveEvent.x, event.MouseMoveEvent.y);
+                Vector2i mousePixel(event.mouseMove.x, event.mouseMove.y);
                 plane.setMouseLocation(mousePixel);
             }
             if (Keyboard::isKeyPressed(Keyboard::Escape))
