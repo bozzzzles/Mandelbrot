@@ -37,13 +37,13 @@ int main() {
 			    if (event.mouseButton.button == Mouse::Left)
 			    {
                     plane.zoomIn();
-                    Vector2i mousePixel(mouseButton.x, mouseButton.y);
+                    Vector2i mousePixel(event.mouseButton.x, event.mouseButton.y);
                     plane.setCenter(mousePixel);
                 }
                 if (event.mouseButton.button == Mouse::Right)
                 {
                     plane.zoomOut();
-                    Vector2i mousePixel(mouseButton.x, mouseButton.y);
+                    Vector2i mousePixel(event.mouseButton.x, event.mouseButton.y);
                     plane.setCenter(mousePixel);
                 }
             }
