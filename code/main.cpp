@@ -10,10 +10,10 @@ int main() {
 	RenderWindow window(vm, "Mandelbrot Set", Style::Default);
 
     Font arial;
-    if (!marioFont.loadFromFile("Fonts/Arial.ttf")) {
+    if (!arial.loadFromFile("Fonts/Arial.ttf")) {
 		cout << "Error loading font from file." << endl;
 		return 1;
 	}
-    
+
     return 0;
 }
