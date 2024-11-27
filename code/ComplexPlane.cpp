@@ -20,65 +20,84 @@ ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight)
     m_state = State::CALCULATING;
     // Sets vertex array to "Points", which has to do with how SFML graphics are stored
     m_vArray.setPrimitiveType(Points);
-    // 
+    // Changes size of m_vArray
     m_vArray.resize(pixelWidth * pixelHeight);
 }
 
+// Draws our complex plane
 void ComplexPlane::draw(RenderTarget& target, RenderStates States) const
 {
     target.draw(m_vArray);
 }
 
+// This is important, yo
 void ComplexPlane::updateRender()
 {
+// Checks state
     if (m_state == CALCULATING)
     {
         int workableThreads = thread::hardware_concurrency();
-        
+// Double for loop controlling x (j) and y(i)
         for (int i = 0; i < m_pixel_size.y; i++)
         {
             for (int j = 0; j < m_pixel_size.x; j++)
             {
+// Map x/ y coordinate to corresponding vector position
                 m_vArray[j + i * m_pixel_size.x].position = { (float)j,(float)i };
+// Used mapPixelToCoords to find 2d complex coordinate that corresponds with screen pixel
+// Stored above in int using countIterations
                 int n = countIterations(mapPixelToCoords({ j, i }));
+// Set RGB values at corresponding coordinate
                 Uint8 r, g, b;
                 iterationsToRGB(n, r, g, b);
                 m_vArray[j + i * m_pixel_size.x].color = { r,g,b };
             }
         }
+// Set state to displaying
         m_state = DISPLAYING;
     }
 }
 
 void ComplexPlane::zoomIn()
 {
+    // Increment zoomCount
     m_zoomCount++;
+    // Scale x/y zoom exponentially
     float x = BASE_WIDTH * pow(BASE_ZOOM, m_zoomCount);
     float y = BASE_HEIGHT * m_aspectRatio * pow(BASE_ZOOM, m_zoomCount);
     m_plane_size = { x, y };
+    // Set state to calculating
     m_state = CALCULATING;
 }
 
 void ComplexPlane::zoomOut()
 {
+    // Decrement zoomCount
     m_zoomCount--;
+    // Scale x/y zoom exponentially
     float x = BASE_WIDTH * pow(BASE_ZOOM, m_zoomCount);
     float y = BASE_HEIGHT * m_aspectRatio * pow(BASE_ZOOM, m_zoomCount);
     m_plane_size = { x, y };
+    // Set state to calculating
     m_state = CALCULATING;
 }
 
+// Find Vector2f coord in complex plane corresponding with screen pixel location
+// Set center
 void ComplexPlane::setCenter(Vector2i mousePixel)
 {
     m_plane_center = mapPixelToCoords(mousePixel);
+    // Set to calculating
     m_state = CALCULATING;
 }
-
+// Find Vector2f coord in complex plane corresponding with screen pixel location
+// Set mouse position
 void ComplexPlane::setMouseLocation(Vector2i mousePixel)
 {
     m_mouseLocation = mapPixelToCoords(mousePixel);
 }
 
+// Sets output information to a stringstream which is converted to a string
 void ComplexPlane::loadText(Text& text)
 {
     stringstream info;
@@ -90,6 +109,7 @@ void ComplexPlane::loadText(Text& text)
     text.setString(info.str());
 }
 
+// Counts number of iterations of set for given coordinate
 int ComplexPlane::countIterations(Vector2f coord)
 {
     complex<double> c(coord.x, coord.y);
@@ -150,11 +170,15 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
     }
 }
 
+// Maps pixel on monitor to a complex coordinate
 Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
 {
+    // Creates 2d coordinate vector
     Vector2f coord;
+    // Maps x coordinate
     coord.x = (static_cast<float>(mousePixel.x) / (m_pixel_size.x)) 
               * m_plane_size.x + (m_plane_center.x - m_plane_size.x / 2.0);
+    // Maps y coordninate
     coord.y = (static_cast<float>(mousePixel.y - m_pixel_size.y) / -(m_pixel_size.y)) 
               * m_plane_size.y + (m_plane_center.y - m_plane_size.y / 2.0);
     return coord;
