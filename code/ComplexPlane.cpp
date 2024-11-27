@@ -6,15 +6,21 @@
 */
 ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight)
 {
-    // Sets monitor's pixel size 2d vector to passed argument
+    // Sets window's pixel size 2d vector to passed argument
     m_pixel_size = { pixelWidth, pixelHeight };
-    // Calculates monitor's aspect ratio via passed argument to prevent distortion
+    // Calculates window's aspect ratio via passed argument to prevent distortion
     m_aspectRatio = static_cast<float>(pixelHeight) / pixelWidth;
+    // Sets center of plane to coordinates (0, 0)
     m_plane_center = { 0, 0 };
+    // Scales size of plane by aspect ratio (calculated above)
     m_plane_size = { BASE_WIDTH, BASE_HEIGHT * m_aspectRatio };
+    // Assings inital zoom to 0
     m_zoomCount = 0;
+    // Flips state of obect to "calculating" as discussed with enum to begin Mandelbrot set
     m_state = State::CALCULATING;
+    // Sets vertex array to "Points", which has to do with how SFML graphics are stored
     m_vArray.setPrimitiveType(Points);
+    // 
     m_vArray.resize(pixelWidth * pixelHeight);
 }
 
