@@ -10,7 +10,7 @@ int main() {
 	RenderWindow window(vm, "Mandelbrot Set", Style::Default);
 
     Font arial;
-    if (!arial.loadFromFile("Fonts/Arial.ttf")) {
+    if (!arial.loadFromFile("fonts/Arial.ttf")) {
 		cout << "Error loading font from file." << endl;
 		return 1;
 	}
