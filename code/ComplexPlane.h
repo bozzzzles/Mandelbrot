@@ -18,10 +18,15 @@ const float BASE_WIDTH = 4.0;
 const float BASE_HEIGHT = 4.0;
 const float BASE_ZOOM = 0.5;
 
-// Enumerator class created to calculate the complex plane display
+/* Enumerator class created to hold two states. State variable Calculating actively calculates 
+   complex plane, while Displaying is used to allow us to do so once per click (or on startup)
+*/
 enum State { CALCULATING, DISPLAYING };
 
-// Specifications of ComplexPlane class as described in UML diagram
+/* Specifications of ComplexPlane class as described in UML diagram
+   Inherits from SFML class Drawable to call window.draw(), uses SFML VertexArray class to
+   draw each pixel as a colored point on the monitor
+*/
 class ComplexPlane : public Drawable 
 {
 public:
