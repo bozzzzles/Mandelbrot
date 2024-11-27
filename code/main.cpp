@@ -9,19 +9,23 @@ int main() {
 	// Create and open a window for the game
 	RenderWindow window(vm, "Mandelbrot Set", Style::Default);
 
+    // Set font to arial
     Font arial;
     if (!arial.loadFromFile("fonts/Arial.ttf")) {
 		cout << "Error loading font from file." << endl;
 		return 1;
 	}
 
+    // Create text object, load with specs (Arial font, 14 size, white color)
     Text info;
     info.setFont(arial);
     info.setCharacterSize(14);
     info.setFillColor(Color::White);
 
+    // Create ComplexPlane object
     ComplexPlane plane(pixelWidth, pixelHeight);
 
+    // While loop controlling program, ends when window is closed
     while(window.isOpen())
     {
         Event event;
@@ -34,6 +38,7 @@ int main() {
 		    }
             if (event.type == Event::MouseButtonPressed)
 		    {
+                // Control zoom with right/ left click
 			    if (event.mouseButton.button == Mouse::Left)
 			    {
                     plane.zoomIn();
@@ -47,17 +52,20 @@ int main() {
                     plane.setCenter(mousePixel);
                 }
             }
+            // Check mouse location
             if (event.type == Event::MouseMoved)
             {
                 Vector2i mousePixel(event.mouseMove.x, event.mouseMove.y);
                 plane.setMouseLocation(mousePixel);
             }
+            // Exit loop with escape key
             if (Keyboard::isKeyPressed(Keyboard::Escape))
 		    {
 			    window.close();
 		    }
         }
 
+        // Update plane
         plane.updateRender();
         plane.loadText(info);
 
