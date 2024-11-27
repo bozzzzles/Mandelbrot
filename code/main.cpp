@@ -37,12 +37,14 @@ int main() {
 			    if (event.mouseButton.button == Mouse::Left)
 			    {
                     plane.zoomIn();
-                    plane.setCenter(event.mouseButton);
+                    Vector2i mousePixel(mouseButton.x, mouseButton.y);
+                    plane.setCenter(mousePixel);
                 }
                 if (event.mouseButton.button == Mouse::Right)
                 {
                     plane.zoomOut();
-                    plane.setCenter(event.mouseButton);
+                    Vector2i mousePixel(mouseButton.x, mouseButton.y);
+                    plane.setCenter(mousePixel);
                 }
             }
             if (Keyboard::isKeyPressed(Keyboard::Escape))
@@ -55,8 +57,8 @@ int main() {
         plane.loadText(info);
 
         window.clear();
-        plane.draw();
-        info.draw();
+        window.draw(plane);
+        window.draw(info);
         window.display();
 
     }
