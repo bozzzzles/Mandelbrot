@@ -1,9 +1,6 @@
 #include "ComplexPlane.h"
 
 int main() {
-    // Create threads
-    thread thread1;
-    thread thread2;
     // Create a video mode object
 	int pixelWidth = VideoMode::getDesktopMode().width / 2;
 	int pixelHeight = VideoMode::getDesktopMode().height / 2;
